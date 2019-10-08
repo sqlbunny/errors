@@ -6,11 +6,11 @@ import (
 )
 
 func New(message string) error {
-	return WithStack(errors.New(message))
+	return withStackInner(errors.New(message))
 }
 
 func Errorf(format string, a ...interface{}) error {
-	return WithStack(fmt.Errorf(format, a...))
+	return withStackInner(fmt.Errorf(format, a...))
 }
 
 func As(err error, target interface{}) bool {
