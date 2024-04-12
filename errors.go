@@ -24,3 +24,19 @@ func Is(err, target error) bool {
 func Unwrap(err error) error {
 	return errors.Unwrap(err)
 }
+
+func UnwrapFirst(err error) error {
+	switch x := err.(type) {
+	case interface{ Unwrap() error }:
+		return x.Unwrap()
+	case interface{ Unwrap() []error }:
+		for _, err := range x.Unwrap() {
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	default:
+		return nil
+	}
+}

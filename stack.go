@@ -95,7 +95,7 @@ func doStackTrace(w *bytes.Buffer, err error, next []string) {
 		next = raw
 	}
 
-	err2 := Unwrap(err)
+	err2 := UnwrapFirst(err)
 	if err != nil {
 		doStackTrace(w, err2, next)
 	}
